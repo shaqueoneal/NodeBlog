@@ -368,6 +368,55 @@ module.exports = function(app) {
     });
   });
 
+  // added for kindeditor upload
+  app.post('/uploadImages', checkLogin);
+  app.post('/uploadImages', function(req, res, next) {
+    // var form = new formidable.IncomingForm();
+    // form.keepExtensions = true;
+    // form.uploadDir = __dirname + '/../public/upload';
+    // form.parse(req, function (err, fields, files) {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     var image = files.imgFile;
+    //     var path = image.path;
+    //     path = path.replace('/\\/g', '/');
+    //     var url = '/upload' + path.substr(path.lastIndexOf('/'), path.length);
+    //     var info = {
+    //         "error": 0,
+    //         "url": url
+    //     };
+    //     res.send(info);
+    // });
+
+    console.log("文件默认属性：" + req.files.imgFile.name);
+
+    var obj = req.files.imgFile;  
+    var tmp_path = obj.path;  
+    var new_path = "./public/images/" + obj.name;  
+
+    console.log("原路径：" + tmp_path);  
+    console.log("新路径：" + new_path);  
+
+    // fs.rename(tmp_path, new_path, function(err){  
+    //     if(err){  
+    //         throw err;  
+    //     }  
+    // }) 
+
+    var path = obj.path;
+    path = path.replace('/\\/g', '/');
+    var url = req.headers.origin + '/public/images/' + obj.name;
+    var info = {
+        "error": 0,
+        "url": url
+    };
+
+    console.log(info);
+    res.send(info);
+  });
+
+
   app.use(function (req, res) {
     res.render("404");
   });
