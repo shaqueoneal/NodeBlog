@@ -368,7 +368,7 @@ module.exports = function(app) {
     });
   });
 
-  // added for kindeditor upload
+  // added for kindeditor upload  
   app.post('/uploadImages', checkLogin);
   app.post('/uploadImages', function(req, res, next) {
     // var form = new formidable.IncomingForm();
@@ -389,30 +389,16 @@ module.exports = function(app) {
     //     res.send(info);
     // });
 
-    console.log("文件默认属性：" + req.files.imgFile.name);
+    var imgFile = req.files.imgFile;
 
-    var obj = req.files.imgFile;  
-    var tmp_path = obj.path;  
-    var new_path = "./public/images/" + obj.name;  
-
-    console.log("原路径：" + tmp_path);  
-    console.log("新路径：" + new_path);  
-
-    // fs.rename(tmp_path, new_path, function(err){  
-    //     if(err){  
-    //         throw err;  
-    //     }  
-    // }) 
-
-    var path = obj.path;
-    path = path.replace('/\\/g', '/');
-    var url = req.headers.origin + '/public/images/' + obj.name;
+    console.log("上传文件：" + imgFile.path);
+    
+    var url = req.headers.origin + '/images/' + imgFile.name;   //todo：文件名后缀加上用户名和时间精确到秒
     var info = {
         "error": 0,
         "url": url
     };
-
-    console.log(info);
+    
     res.send(info);
   });
 

@@ -44,6 +44,17 @@ app.use(session({
   })
 }));
 app.use(flash());
+
+/*
+  static是express唯一一个内置中间件，可以把实际路径虚拟成指定路径, 如：
+    app.use('/static', express.static('public'));
+  以上是把public路径转换成了static路径，这样就可以通过URL：
+  http://localhost:3000/static/images/kitten.jpg 访问
+  http://localhost:3000/public/images/kitten.jpg
+  如果省略第一个参数就是隐藏了public目录，直接通过
+  http://localhost:3000/images/kitten.jpg 访问
+  详见http://www.expressjs.com.cn/starter/static-files.html
+*/
 app.use(express.static(path.join(__dirname, 'public')));
 
 routes(app);

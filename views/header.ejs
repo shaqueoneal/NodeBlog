@@ -9,11 +9,11 @@
 <script>
 var editor;
 KindEditor.ready(function(K) {
-  editor = K.create('textarea', {
-  // allowImageUpload : false,
-  uploadJson: '/uploadImages',
-  allowImageRemote : false,
-  items : [
+  editor = K.create('textarea', {  
+    formatUploadUrl: false,
+    uploadJson: '/uploadImages',
+    allowImageRemote : false,
+    items : [
     'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
     'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright',
     'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
