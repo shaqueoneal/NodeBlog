@@ -28,9 +28,10 @@ app.use(logger({stream: accessLog}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({
   dest: './public/images',
+  /* 如果不提供rename函数，multer会重命名上传文件
   rename: function (fieldname, filename) {
-    return filename;
-  }
+    return nameParts.join();
+  }*/
 }));
 app.use(cookieParser());
 app.use(session({

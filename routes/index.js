@@ -389,11 +389,11 @@ module.exports = function(app) {
     //     res.send(info);
     // });
 
-    var imgFile = req.files.imgFile;
+    var imgFile = req.files.imgFile;    //文件名已通过multer重命名
 
     console.log("上传文件：" + imgFile.path);
     
-    var url = req.headers.origin + '/images/' + imgFile.name;   //todo：文件名后缀加上用户名和时间精确到秒
+    var url = req.headers.origin + '/images/' + imgFile.name; 
     var info = {
         "error": 0,
         "url": url
