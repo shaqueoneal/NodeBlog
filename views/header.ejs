@@ -4,20 +4,26 @@
 <meta charset="UTF-8" />
 <title>Blog</title>
 <link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/kindeditor/plugins/code/prettify.css">
+<script charset="utf-8" src="/kindeditor/plugins/code/prettify.js"></script>
 <script charset="utf-8" src="/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="/kindeditor/lang/zh_CN.js"></script>
 <script>
 var editor;
 KindEditor.ready(function(K) {
-  editor = K.create('textarea', {  
+  editor = K.create('textarea', {
+    cssPath: '/kindeditor/plugins/code/prettify.css',
     formatUploadUrl: false,
     uploadJson: '/uploadImages',
     allowImageRemote : false,
+    filterMode: false,  /* 允许输入代码 */
     items : [
     'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
     'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright',
-    'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+    'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'code', 'link', '|', 'preview']
   });
+
+  prettyPrint();
 });
 </script>
 </head>
