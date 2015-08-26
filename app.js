@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
-var multer  = require('multer');
 
 var routes = require('./routes/index');
 var settings = require('./settings');
@@ -26,13 +25,7 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(logger({stream: accessLog}));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({
-  dest: './public/images',
-  /* 如果不提供rename函数，multer会重命名上传文件
-  rename: function (fieldname, filename) {
-    return nameParts.join();
-  }*/
-}));
+
 app.use(cookieParser());
 app.use(session({
   secret: settings.cookieSecret,

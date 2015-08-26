@@ -3,6 +3,8 @@ var crypto = require('crypto'),
     User = require('../models/user.js'),
     Post = require('../models/post.js'),
     Comment = require('../models/comment.js');
+var multer  = require('multer');
+
 
 module.exports = function(app) {
   app.get('/', function (req, res) {
@@ -137,6 +139,14 @@ module.exports = function(app) {
     req.flash('success', '登出成功!');
     res.redirect('/');//登出成功后跳转到主页
   });
+
+  app.use('/upload', multer({
+    dest: './public/images',
+    /* 如果不提供rename函数，multer会重命名上传文件
+    rename: function (fieldname, filename) {
+      return nameParts.join();
+    }*/
+  }));
 
   app.get('/upload', checkLogin);
   app.get('/upload', function (req, res) {
@@ -368,6 +378,14 @@ module.exports = function(app) {
     });
   });
 
+  app.use('/uploadImages', multer({
+    dest: './public/images',
+    /* 如果不提供rename函数，multer会重命名上传文件
+    rename: function (fieldname, filename) {
+      return nameParts.join();
+    }*/
+  }));
+
   // added for kindeditor upload  
   app.post('/uploadImages', checkLogin);
   app.post('/uploadImages', function(req, res, next) {
@@ -388,7 +406,6 @@ module.exports = function(app) {
     //     };
     //     res.send(info);
     // });
-
     var imgFile = req.files.imgFile;    //文件名已通过multer重命名
 
     console.log("上传文件：" + imgFile.path);
@@ -402,6 +419,32 @@ module.exports = function(app) {
     res.send(info);
   });
 
+  /* 上传头像 */
+  app.use('/uploadAvatars', multer({
+    dest: './public/images/avatars',
+    /* 如果不提供rename函数，multer会重命名上传文件
+    rename: function (fieldname, filename) {
+      return nameParts.join();
+    }*/
+  }));
+
+  app.post('/uploadAvatars', checkLogin);
+  app.post('/uploadAvatars', function(req, res, next) {
+    var imgFile = req.files.file;
+    // console.log("上传头像：" + imgFile.path);
+    // console.log(req);
+
+    var oArea = {};
+    oArea.top = req.body.top;
+    oArea.left = req.body.left;
+    oArea.right = req.body.right;
+    oArea.bottom = req.body.bottom;
+    oArea.rotation = req.body.rotation;
+    oArea.scale = req.body.scale;
+
+    var url = req.headers.origin + '/images/avatars/' + imgFile.name; 
+    res.send({status:0, msg: "上传成功", url: url});
+  });
 
   app.use(function (req, res) {
     res.render("404");
