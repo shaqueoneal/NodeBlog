@@ -85,22 +85,23 @@ function submitAvatar() {
         clearForm: false,
         resetForm: false,
         timeout: 60000,
-        error: function () {
+        error: function (xhr, textStatus, errorThrown) {
             alertMessagePopup("编辑头像失败");
         }
     });
 }
 
 function saveCallBack(responseText) {
-    if (responseText.status) {
-        $("#memberZoomPortrait").attr("src", responseText.imageUrl);
-        alertMessagePopup("编辑头像成功");
-        if ($("#rotation").val() != 0) {
-            window.location.reload();
-        }
-    } else {
-        alertMessagePopup("编辑头像失败");
-    }
+    alertMessagePopup("编辑头像成功");
+    // if (responseText.status) {
+    //     $("#memberZoomPortrait").attr("src", responseText.imageUrl);
+        
+    //     if ($("#rotation").val() != 0) {
+    //         window.location.reload();
+    //     }
+    // } else {
+    //     alertMessagePopup("编辑头像失败");
+    // }
 }
 //{放大缩小
 //放大缩小图片
